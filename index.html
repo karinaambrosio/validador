@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Validador de Secuencias</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      text-align: center;
+      width: 320px;
+    }
+    h2 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+    input {
+      width: 90%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    #resultado {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    .valido {
+      color: green;
+    }
+    .invalido {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Validador de Secuencias</h2>
+    <input type="text" id="cadena" placeholder="Ingrese secuencia de llaves">
+    <button onclick="validar()">Validar</button>
+    <p id="resultado"></p>
+  </div>
+
+  <script>
+    function validar() {
+      const cadena = document.getElementById("cadena").value;
+      const pila = [];
+      let valido = true;
+
+      for (let i = 0; i < cadena.length; i++) {
+        const c = cadena.charAt(i);
+        if (c === '{') pila.push(c);
+        else if (c === '}') {
+          if (pila.length === 0) {
+            valido = false;
+            break;
+          }
+          pila.pop();
+        }
+      }
+
+      if (valido && pila.length === 0) {
+        document.getElementById("resultado").innerHTML = "Cadena válida";
+        document.getElementById("resultado").className = "valido";
+      } else {
+        document.getElementById("resultado").innerHTML = "Cadena inválida";
+        document.getElementById("resultado").className = "invalido";
+      }
+    }
+  </script>
+</body>
+</html>
